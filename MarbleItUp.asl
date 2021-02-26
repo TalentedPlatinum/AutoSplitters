@@ -42,7 +42,7 @@ startup {
 			"Cog Valley" }
 		},
 		{ "Chapter 4: Kick It Up a Notch", new string[] {
-			"Bumpter Invasion",
+			"Bumper Invasion",
 			"Braid",
 			"Sun Spire",
 			"Epoch",
