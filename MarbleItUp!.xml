@@ -3,7 +3,7 @@
             <Game>Marble It Up!</Game>
         </Games>
         <URLs>
-            <URL>raw link</URL>
+            <URL>https://raw.githubusercontent.com/TalentedPlatinum/AutoSplitters/main/MarbleItUp.asl</URL>
         </URLs>
         <Type>Script</Type>
         <Description>A Marble it up Auto Splitters that splits when you finish a level</Description>
