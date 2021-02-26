@@ -1,0 +1,11 @@
+    <AutoSplitter>
+        <Games>
+            <Game>Marble It Up!</Game>
+        </Games>
+        <URLs>
+            <URL>raw link</URL>
+        </URLs>
+        <Type>Script</Type>
+        <Description>A Marble it up Auto Splitters that splits when you finish a level</Description>
+        <Website>link to a readme, discord, etc</Website>
+    </AutoSplitter>
