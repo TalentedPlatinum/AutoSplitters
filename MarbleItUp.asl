@@ -1,3 +1,11 @@
+// A auto splitter made for Marble It UP!
+// The splitter splits when you a finish level
+
+// Created by TalentedPlatinum, with a lot of help from the Speedrun Tool Development discord server
+// Especially Ero
+
+// Playtested by VilleOlof, general questions and specifications were also made by VilleOlof
+
 state("Marble It Up") {
 	string128 chapterName : "mono-2.0-bdwgc.dll", 0x491DC8, 0x10, 0xB40, 0x28, 0x10, 0x14;
 	string128 levelName   : "mono-2.0-bdwgc.dll", 0x491DC8, 0x10, 0xB40, 0x30, 0x10, 0x14;
