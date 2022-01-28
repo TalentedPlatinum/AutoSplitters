@@ -1,5 +1,8 @@
-// Originally created by TalentedPlatinum.
-// Website: https://github.com/TalentedPlatinum/AutoSplitters.
+// An autosplitter for Marble It UP!
+// Starts & resets when the "PLAY" button is pressed on the first level, splits when a level is finished.
+
+// Created by TalentedPlatinum & Ero, with help from the Speedrun Tool Development Discord server.
+// Playtested by VilleOlof, general questions and specifications were also made by VilleOlof.
 
 state("Marble It Up") {}
 
@@ -165,7 +168,7 @@ update
 
 start
 {
-	return current.Level == "Learning To Roll" && !old.Loading && current.Loading;
+	return !old.Loading && current.Loading && current.Level == "Learning To Roll";
 }
 
 split
@@ -175,7 +178,7 @@ split
 
 reset
 {
-	return current.Level == "Learning To Roll" && !old.Loading && current.Loading;
+	return !old.Loading && current.Loading && current.Level == "Learning To Roll";
 }
 
 // gameTime
