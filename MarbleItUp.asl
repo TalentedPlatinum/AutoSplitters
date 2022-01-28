@@ -8,7 +8,7 @@ state("Marble It Up") {}
 
 startup
 {
-	vars.Log = (Action<object>)(output => print("[Marble It UP!] " + output));
+	vars.Log = (Action<object>)(output => print("[Marble It Up!] " + output));
 
 	var chapters = new Dictionary<string, string[]>
 	{
