@@ -176,10 +176,10 @@ split
 	return old.Mode == 1 && current.Mode == 4 && settings[current.Level];
 }
 
-reset
-{
-	return !old.Loading && current.Loading && current.Level == "Learning To Roll";
-}
+// reset
+// {
+// 	return !old.Loading && current.Loading && current.Level == "Learning To Roll";
+// }
 
 // gameTime
 // {
