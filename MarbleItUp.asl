@@ -105,7 +105,7 @@ startup
 			settings.Add(level, true, level, chapter.Key);
 	}
 
-	vars.Unity = Activator.CreateInstance(Assembly.LoadFrom(@"Components\ULibrary.dll").GetType("ULibrary.Unity"));
+	vars.Unity = Assembly.Load(File.ReadAllBytes(@"Components\ULibrary.dll")).CreateInstance("ULibrary.Unity");
 }
 
 // onStart
