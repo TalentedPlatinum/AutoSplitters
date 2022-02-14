@@ -146,13 +146,13 @@ update
 {
 	if (!vars.Unity.Loaded) return false;
 
-	vars.Unity.Watchers.UpdateAll(game);
+	vars.Unity.Update();
 
-	// current.Chapter = vars.Unity.Watchers["chapter"].Current;
-	current.Level = vars.Unity.Watchers["level"].Current;
-	current.Loading = vars.Unity.Watchers["loading"].Current;
-	current.Mode = vars.Unity.Watchers["mode"].Current;
-	// current.Time = vars.Unity.Watchers["time"].Current;
+	// current.Chapter = vars.Unity["chapter"].Current;
+	current.Level = vars.Unity["level"].Current;
+	current.Loading = vars.Unity["loading"].Current;
+	current.Mode = vars.Unity["mode"].Current;
+	// current.Time = vars.Unity["time"].Current;
 }
 
 start
