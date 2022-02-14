@@ -157,7 +157,14 @@ update
 
 start
 {
-	return !old.Loading && current.Loading && current.Level == "Learning To Roll";
+	return !old.Loading && current.Loading && (
+		current.Level == "Learning To Roll" ||
+		current.Level == "Duality" ||
+		current.Level == "Sugar Rush" ||
+		current.Level == "Bumper Invasion" ||
+		current.Level == "Newton's Cradle" ||
+		current.Level == "Danger Zone"
+	);
 }
 
 split
