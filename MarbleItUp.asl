@@ -9,7 +9,7 @@ state("Marble It Up") {}
 startup
 {
 	vars.Log = (Action<object>)(output => print("[Marble It Up!] " + output));
-	vars.Unity = Assembly.Load(File.ReadAllBytes(@"Components\UnityASL.bin")).CreateInstance("ULibrary.Unity");
+	vars.Unity = Assembly.Load(File.ReadAllBytes(@"Components\UnityASL.bin")).CreateInstance("UnityASL.Unity");
 
 	// Could also check every first item in the settings loop below? I'm lazy.
 	vars.StartLevels = new List<string> { "Learning To Roll", "Duality", "Sugar Rush", "Bumper Invasion", "Newton's Cradle", "Danger Zone" };
