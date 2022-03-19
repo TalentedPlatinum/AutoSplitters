@@ -9,6 +9,10 @@ state("Marble It Up") {}
 startup
 {
 	vars.Log = (Action<object>)(output => print("[Marble It Up!] " + output));
+	vars.Unity = Assembly.Load(File.ReadAllBytes(@"Components\UnityASL.bin")).CreateInstance("UnityASL.Unity");
+
+	// Could also check every first item in the settings loop below? I'm lazy.
+	vars.StartLevels = new List<string> { "Learning To Roll", "Duality", "Sugar Rush", "Bumper Invasion", "Newton's Cradle", "Danger Zone" };
 
 	var chapters = new Dictionary<string, string[]>
 	{
@@ -104,8 +108,6 @@ startup
 		foreach (var level in chapter.Value)
 			settings.Add(level, true, level, chapter.Key);
 	}
-
-	vars.Unity = Assembly.Load(File.ReadAllBytes(@"Components\ULibrary.bin")).CreateInstance("ULibrary.Unity");
 }
 
 // onStart
@@ -157,14 +159,7 @@ update
 
 start
 {
-	return !old.Loading && current.Loading && (
-		current.Level == "Learning To Roll" ||
-		current.Level == "Duality" ||
-		current.Level == "Sugar Rush" ||
-		current.Level == "Bumper Invasion" ||
-		current.Level == "Newton's Cradle" ||
-		current.Level == "Danger Zone"
-	);
+	return !old.Loading && current.Loading && vars.StartLevels.Contains(current.Level);
 }
 
 split
