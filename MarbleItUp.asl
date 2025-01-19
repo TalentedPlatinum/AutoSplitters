@@ -1,196 +1,357 @@
-// An autosplitter for Marble It UP!
-// Starts & resets when the "PLAY" button is pressed on the first level, splits when a level is finished.
+// Autosplitter for Marble It Up! and Marble It Up! Ultra.
+// Created by Ero from previous iterations by TalentedPlatinum and thearst3rd.
 
-// Created by TalentedPlatinum & Ero, with help from the Speedrun Tool Development Discord server.
-// Playtested by VilleOlof, general questions and specifications were also made by VilleOlof.
+// Start and split settings available for all levels, including settings for custom levels.
 
-state("Marble It Up") {}
+state("Marble It Up") { }
 
 startup
 {
-	vars.Log = (Action<object>)(output => print("[Marble It Up!] " + output));
-	vars.Unity = Assembly.Load(File.ReadAllBytes(@"Components\UnityASL.bin")).CreateInstance("UnityASL.Unity");
+    Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Unity");
 
-	// Could also check every first item in the settings loop below? I'm lazy.
-	vars.StartLevels = new List<string> { "Learning To Roll", "Duality", "Sugar Rush", "Bumper Invasion", "Newton's Cradle", "Danger Zone" };
+    var miu = new Dictionary<string, string[]>
+    {
+        { "Chapter 1: Master the Basics", new[]
+            {
+                "Learning To Roll",
+                "Learning To Turn",
+                "Learning To Jump",
+                "Precious Gems",
+                "Up the Wall",
+                "Super Jump",
+                "Full Speed Ahead",
+                "Stay Frosty",
+                "Onward and Upward",
+            }
+        },
+        { "Chapter 2: The Subtle Joy of Rolling", new[]
+            {
+                "Duality",
+                "Transit",
+                "Great Wall",
+                "Bump in the Night",
+                "Over the Garden Wall",
+                "Wave Pool",
+                "Big Easy",
+                "Archipelago",
+                "Triple Divide",
+                "Thread the Needle",
+            }
+        },
+        { "Chapter 3: Beat the Clock", new[]
+            {
+                "Sugar Rush",
+                "Elevator Action",
+                "Speedball",
+                "Icy Ascent",
+                "River Vantage",
+                "Off Kilter",
+                "Four Stairs",
+                "Totally Tubular",
+                "Time Capsule",
+                "Cog Valley",
+            }
+        },
+        { "Chapter 4: Kick It Up a Notch", new[]
+            {
+                "Bumper Invasion",
+                "Braid",
+                "Sun Spire",
+                "Epoch",
+                "Retrograde Rally",
+                "Gearheart",
+                "Acrophobia",
+                "Dire Straits",
+                "Ex Machina",
+                "Diamond in the Sky",
+            }
+        },
+        { "Chapter 5: Show Me What You Got", new[]
+            {
+                "Newton's Cradle",
+                "Archiarchy",
+                "Stayin' Alive",
+                "Gordian",
+                "Crystalline Matrix",
+                "Contraption",
+                "Uphill Both Ways",
+                "Flip the Table",
+                "Vertigo",
+                "Warp Core",
+                "The Pit of Despair",
+            }
+        },
+        { "Chapter 6: Play for Keeps", new[]
+            {
+                "Danger Zone",
+                "Platinum Playground",
+                "Radius",
+                "Head in the Clouds",
+                "Centripetal Force",
+                "Escalation",
+                "Confluence",
+                "Olympus",
+                "Tangle",
+                "Stratosphere",
+            }
+        },
+    };
 
-	var chapters = new Dictionary<string, string[]>
-	{
-		{ "Chapter 1: Master the Basics", new[]
-			{
-				"Learning To Roll",
-				"Learning To Turn",
-				"Learning To Jump",
-				"Precious Gems",
-				"Up the Wall",
-				"Super Jump",
-				"Full Speed Ahead",
-				"Stay Frosty",
-				"Onward and Upward"
-			}
-		},
-		{ "Chapter 2: The Subtle Joy of Rolling", new[]
-			{
-				"Duality",
-				"Transit",
-				"Great Wall",
-				"Bump in the Night",
-				"Over the Garden Wall",
-				"Wave Pool",
-				"Big Easy",
-				"Archipelago",
-				"Triple Divide",
-				"Thread the Needle"
-			}
-		},
-		{ "Chapter 3: Beat the Clock", new[]
-			{
-				"Sugar Rush",
-				"Elevator Action",
-				"Speedball",
-				"Icy Ascent",
-				"River Vantage",
-				"Off Kilter",
-				"Four Stairs",
-				"Totally Tubular",
-				"Time Capsule",
-				"Cog Valley"
-			}
-		},
-		{ "Chapter 4: Kick It Up a Notch", new[]
-			{
-				"Bumper Invasion",
-				"Braid",
-				"Sun Spire",
-				"Epoch",
-				"Retrograde Rally",
-				"Gearheart",
-				"Acrophobia",
-				"Dire Straits",
-				"Ex Machina",
-				"Diamond in the Sky"
-			}
-		},
-		{ "Chapter 5: Show Me What You Got", new[]
-			{
-				"Newton's Cradle",
-				"Archiarchy",
-				"Stayin' Alive",
-				"Gordian",
-				"Crystalline Matrix",
-				"Contraption",
-				"Uphill Both Ways",
-				"Flip the Table",
-				"Vertigo",
-				"Warp Core",
-				"The Pit of Despair"
-			}
-		},
-		{ "Chapter 6: Play for Keeps", new[]
-			{
-				"Danger Zone",
-				"Platinum Playground",
-				"Radius",
-				"Head in the Clouds",
-				"Centripetal Force",
-				"Escalation",
-				"Confluence",
-				"Olympus",
-				"Tangle",
-				"Stratosphere"
-			}
-		}
-	};
+    var miuu = new Dictionary<string, string[]>
+    {
+        { "Chapter 1: Get Moving", new[]
+            {
+                "Learning to Roll",
+                "Learning to Turn",
+                "Bunny Slope",
+                "Learning to Jump",
+                "Full Speed Ahead",
+                "Treasure Trove",
+                "Stay Frosty",
+                "Round the Bend",
+                "Leaf on the Wind",
+            }
+        },
+        { "Chapter 2: The Subtle Joy of Rolling", new[]
+            {
+                "Duality",
+                "Learning to Bounce",
+                "Great Wall",
+                "Carom",
+                "Rush Hour",
+                "Over the Garden Wall",
+                "Into the Arctic",
+                "Wave Pool",
+                "Big Easy",
+                "Transit",
+                "Gravity Knot",
+                "Stepping Stones",
+            }
+        },
+        { "Chapter 3: Focus on Flow", new[]
+            {
+                "Speedball",
+                "Mount Marblius",
+                "Transmission",
+                "Archipelago",
+                "Sugar Rush",
+                "Slalom",
+                "Outskirts",
+                "Off Kilter",
+                "Icy Ascent",
+                "Bad Company",
+                "Totally Tubular",
+                "Overclocked",
+            }
+        },
+        { "Chapter 4: Kick It Up a Notch", new[]
+            {
+                "Tether",
+                "Aqueduct",
+                "Ricochet",
+                "Braid",
+                "Sun Spire",
+                "Thunderdrome",
+                "Hyperloop",
+                "Gearing Up",
+                "Acrophobia",
+                "Rime",
+                "Cog Valley",
+                "Citadel",
+            }
+        },
+        { "Chapter 5: Show Me What You Got", new[]
+            {
+                "Newton's Cradle",
+                "Ex Machina",
+                "Gearheart",
+                "Kleinsche",
+                "Dire Straits",
+                "Diamond in the Sky",
+                "Glacier",
+                "Shift",
+                "Conduit",
+                "Flip the Table",
+                "Energy",
+                "Mobius Madness",
+            }
+        },
+        { "Chapter 6: Play for Keeps", new[]
+            {
+                "Amethyst",
+                "Rondure",
+                "Isaac's Apple",
+                "Penrose Pass",
+                "Siege",
+                "Flywheel",
+                "Symbiosis",
+                "Tesseract",
+                "Leaps and Bounds",
+                "Vertigo",
+                "Tossed About",
+                "Apogee",
+            }
+        },
+        { "Bonus 1: Keep on Rolling", new[]
+            {
+                "Rosen Bridge",
+                "Onward and Upward",
+                "Permutation",
+                "Elevator Action",
+                "Time Capsule",
+                "Triple Divide",
+                "Four Stairs",
+                "The Need for Speed",
+                "River Vantage",
+                "Gravity Cube",
+                "Epoch",
+                "Platinum Playground",
+            }
+        },
+        { "Bonus 2: The Way of the Marble", new[]
+            {
+                "Ribbon",
+                "Castle Chaos",
+                "Thread the Needle",
+                "Gordian",
+                "Bumper Invasion",
+                "Bash-tion",
+                "Runout",
+                "Archiarchy",
+                "Crystalline Matrix",
+                "Stayin' Alive",
+                "Medieval Machinations",
+                "The Pit of Despair",
+            }
+        },
+        { "Bonus 3: Keep Your Cool", new[]
+            {
+                "Contraption",
+                "Uphill Both Ways",
+                "Retrograde Rally",
+                "Warp Core",
+                "Cross Traffic",
+                "Prime",
+                "Halfpipe Heaven",
+                "Wanderlust",
+                "Boomerang",
+                "Kendama",
+                "Cirrus",
+                "Zenith",
+            }
+        },
+        { "Bonus 4: Challenge Accepted", new[]
+            {
+                "All Downhill From Here",
+                "Danger Zone",
+                "Olympus",
+                "Head in the Clouds",
+                "Centripetal Force",
+                "Slick Shtick",
+                "Network",
+                "Radius",
+                "Escalation",
+                "Torque",
+                "Tangle",
+                "Stratosphere",
+            }
+        },
+    };
 
-	foreach (var chapter in chapters)
-	{
-		settings.Add(chapter.Key);
-		foreach (var level in chapter.Value)
-			settings.Add(level, true, level, chapter.Key);
-	}
+    settings.Add("miu", true, "Marble It Up!");
+    foreach (var chapter in miu)
+    {
+        settings.Add("miu-" + chapter.Key, true, chapter.Key, "miu");
+        foreach (var level in chapter.Value)
+        {
+            settings.Add("miu-" + level, true, level, "miu-" + chapter.Key);
+                settings.Add("miu-" + level + "-start", true, "Start", "miu-" + level);
+                settings.Add("miu-" + level + "-complete", true, "Split on completion", "miu-" + level);
+        }
+    }
+
+    settings.Add("miuu", true, "Marble It Up! Ultra");
+    foreach (var chapter in miuu)
+    {
+        settings.Add("miuu-" + chapter.Key, true, chapter.Key, "miuu");
+        foreach (var level in chapter.Value)
+        {
+            settings.Add("miuu-" + level, true, level, "miuu-" + chapter.Key);
+                settings.Add("miuu-" + level + "-start", true, "Start", "miuu-" + level);
+                settings.Add("miuu-" + level + "-complete", true, "Split on completion", "miuu-" + level);
+                settings.Add("miuu-" + level + "-treasure", true, "Split on Treasure Box collection", "miuu-" + level);
+        }
+    }
+
+    settings.Add("misc", false, "Miscellaneous");
+        settings.Add("start-other", false, "Start on unknown/custom levels", "misc");
+        settings.Add("split-other-complete", false, "Split on unknown/custom level completion", "misc");
+        settings.Add("split-other-treasure", false, "Split on unknown/custom level Treasure Box collection", "misc");
+
+    vars.CompletedSplits = new HashSet<string>();
+
 }
 
-// onStart
-// {
-// 	vars.TotalTime = 0f;
-// }
+onStart
+{
+    vars.CompletedSplits.Clear();
+}
 
 init
 {
-	// vars.TotalTime = 0f;
+    switch (game.MainWindowTitle)
+    {
+        case "":
+            vars.Log("Game has no main window yet. Retrying.");
+            return vars.Helper.Reject();
+        case "MarbleItUp": version = "miu"; break;
+        case "MarbleItUpUltra": version = "miuu"; break;
+        default:
+            throw new NotSupportedException("Game with title '" + game.MainWindowTitle + "' is not known.");
+    }
 
-	vars.Unity.TryOnLoad = (Func<dynamic, bool>)(helper =>
-	{
-		var str = helper.GetClass("mscorlib", "String");
+    vars.Helper.TryLoad = (Func<dynamic, bool>)(mono =>
+    {
+        mono.Images.Clear();
 
-		// var cs = helper.GetClass("Assembly-CSharp", "ChapterSelect");
-		// var miuChap = helper.GetClass("Assembly-CSharp", "MIU.MarbleChapter");
+        if (version == "miu")
+        {
+            vars.Helper["Level"] = mono.MakeString("LevelSelect", "instance", "level", "name");
+            vars.Helper["Loading"] = mono.Make<bool>("LevelSelect", "loading");
+            vars.Helper["Mode"] = mono.Make<int>("MarbleManager", "instance", "Player", "Mode");
+        }
+        else
+        {
+            vars.Helper["Level"] = mono.MakeString("LevelManager", "CurrentLevel", "name");
+            vars.Helper["Loading"] = mono.Make<bool>("LevelSelect", "loading");
+            vars.Helper["GotTrophy"] = mono.Make<bool>("GamePlayManager", "_Instance", "GotTrophy");
+            vars.Helper["LevelState"] = mono.Make<int>("SpeedrunData", "levelState");
+        }
 
-		var ls = helper.GetClass("Assembly-CSharp", "LevelSelect");
-		var miuLvl = helper.GetClass("Assembly-CSharp", "MIU.MarbleLevel");
+        return true;
+    });
 
-		var mm = helper.GetClass("Assembly-CSharp", "MarbleManager");
-		var mc = helper.GetClass("Assembly-CSharp", "MarbleController");
-
-		// vars.Unity.MakeString(128, cs.Static, cs["instance"], cs["chapter"], miuChap["name"], str["m_FirstChar"]).Name = "chapter";
-		vars.Unity.MakeString(128, ls.Static, ls["instance"], ls["level"], miuLvl["name"], str["m_firstChar"]).Name = "level";
-		vars.Unity.Make<bool>(ls.Static, ls["loading"]).Name = "loading";
-		vars.Unity.Make<int>(mm.Static, mm["instance"], mm["Player"], mc["Mode"]).Name = "mode";
-		// vars.Unity.Make<float>(mm.Static, mm["instance"], mm["Player"], mc["ElapsedTime"]).Name = "time";
-
-		return true;
-	});
-
-	vars.Unity.Load(game);
-}
-
-update
-{
-	if (!vars.Unity.Loaded) return false;
-
-	vars.Unity.Update();
-
-	// current.Chapter = vars.Unity["chapter"].Current;
-	current.Level = vars.Unity["level"].Current;
-	current.Loading = vars.Unity["loading"].Current;
-	current.Mode = vars.Unity["mode"].Current;
-	// current.Time = vars.Unity["time"].Current;
+    vars.CheckForSplit = (Func<string, bool>)(key => settings[key] && vars.CompletedSplits.Add(key));
 }
 
 start
 {
-	return !old.Loading && current.Loading && vars.StartLevels.Contains(current.Level);
+    return !old.Loading && current.Loading
+        && (settings[version + "-" + current.Level + "-start"] || settings["start-other"]);
 }
 
 split
 {
-	return old.Mode == 1 && current.Mode == 4 && settings[current.Level];
-}
-
-// reset
-// {
-// 	return !old.Loading && current.Loading && current.Level == "Learning To Roll";
-// }
-
-// gameTime
-// {
-// 	if (old.Time > current.Time)
-// 		vars.TotalTime += old.Time;
-
-// 	return TimeSpan.FromSeconds(vars.TotalTime + current.Time);
-// }
-
-// isLoading
-// {
-// 	return true;
-// }
-
-exit
-{
-	vars.Unity.Reset();
-}
-
-shutdown
-{
-	vars.Unity.Reset();
+    if (version == "miuu")
+    {
+        return old.LevelState != 1 && current.LevelState == 1
+            && (vars.CheckForSplit(version + "-" + current.Level + "-complete") || settings["split-other-complete"])
+            || !old.GotTrophy && current.GotTrophy
+            && (vars.CheckForSplit(version + "-" + current.Level + "-treasure") || settings["split-other-treasure"]);
+    }
+    else
+    {
+        return old.Mode == 1 && current.Mode == 4
+            && (vars.CheckForSplit(version + "-" + current.Level + "-complete") || settings["split-other-complete"]);
+    }
 }
