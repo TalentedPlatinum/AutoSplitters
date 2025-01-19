@@ -1,9 +1,18 @@
 # AutoSplitters
-A repo for auto splitters
+A repo for autosplitters
 
 
 # Marble It Up!
-The Marble It Up! auto splitter splits when you reach the goal at the end of a level.
+The autosplitter contains settings for all levels:
+* Starts when the level is entered
+* Splits when the level is completed
 
-By TalentedPlatinum, with the help of the Speedrun Tool Development discord server and especially the user Ero
-VilleOlof helped with the play testing and answered general questions as well as providing the specifications for the auto splitter
+[Based on previous work by TalentedPlatinum](https://github.com/TalentedPlatinum/AutoSplitters/blob/0f59a3c1eb63ca2fa48c608dbf660952b800724e/MarbleItUp.asl). Specifications and playtesting by VilleOlof.
+
+# Marble It Up! Ultra
+The autosplitter contains settings for all levels:
+* Starts when the level is entered
+* Splits when the level is completed
+* Splits when the player collects the treasure box
+
+[Based on previous work by thearst3rd](https://github.com/thearst3rd/autosplitters/blob/5441f932eb5e760da586bc8f49ad87d2d5084b23/LiveSplit.MarbleItUpUltra.asl).
