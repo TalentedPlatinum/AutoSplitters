@@ -279,7 +279,7 @@ startup
             settings.Add("miuu-" + level, true, level, "miuu-" + chapter.Key);
                 settings.Add("miuu-" + level + "-start", true, "Start", "miuu-" + level);
                 settings.Add("miuu-" + level + "-complete", true, "Split on completion", "miuu-" + level);
-                settings.Add("miuu-" + level + "-treasure", true, "Split on Treasure Box collection", "miuu-" + level);
+                settings.Add("miuu-" + level + "-treasure", false, "Split on Treasure Box collection", "miuu-" + level);
         }
     }
 
